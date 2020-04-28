@@ -40,12 +40,8 @@ class Login extends Component {
     };
 
     handleSubmit = async () => {
-        //alert(JSON.stringify(this.state))
-        //if(this.state.email.trim() == '' || this.state.password.trim() == '') {
-            //alert('inside')
-            let pushTok = await Notifications.getExpoPushTokenAsync();
-            this.props.login(this.state.email, this.state.password, this.props.navigation, pushTok);
-        //}
+        let pushTok = await Notifications.getExpoPushTokenAsync();
+        this.props.login(this.state.email, this.state.password, this.props.navigation, pushTok);
     }
 
     render() {

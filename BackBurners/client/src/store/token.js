@@ -19,7 +19,7 @@ export const sendTok = (token, userId) => {
     try {
       const resp = await axios.post(`${server}/api/plaid/plaidExchange`,{public_token: token, id: userId}, axiosConfig)
       console.log(resp.data)
-      dispatch(sendPublicToken(resp.data.token));
+      dispatch(sendPublicToken(resp.data));
     } catch (err) {
       console.log('Error sending public token: ', err.message);
     }
@@ -27,9 +27,10 @@ export const sendTok = (token, userId) => {
 };
 
 export const getLatestAccData = (userId) => {
+  console.log(userId)
   return async dispatch => {
     try {
-      const resp = await axios.put(`${server}/api/plaid/${userId}`,{config: axiosConfig})
+      const resp = await axios.get(`${server}/api/plaid/${userId}`,{config: axiosConfig})
       console.log(resp.data)
       //dispatch(setAccTransData(resp.data));
     } catch (err) {

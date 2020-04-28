@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://ia-nyw.bbridges11.backburners.exp.direct",
-  "packagerNgrokUrl": "https://packager.ia-nyw.bbridges11.backburners.exp.direct",
-  "ngrokPid": 86301,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": 19004,
-  "packagerPid": 86288
+  "packagerPort": null,
+  "packagerPid": null
 }

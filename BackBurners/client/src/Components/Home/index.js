@@ -29,7 +29,7 @@ class Home extends Component {
             loading: false,
             OGdataLoaded: true
           })
-          if(this.state.OGdataLoaded) {
+          /*if(this.state.OGdataLoaded) {
             console.log('HEREEEE')
             var date_time = this.props.transactions[0].createdAt;
             console.log(date_time)
@@ -48,7 +48,7 @@ class Home extends Component {
                 }
               }, 3000)
             }
-          }
+          }*/
         }
       }, 3000)
     }
@@ -60,14 +60,15 @@ class Home extends Component {
 
   render() {
     const arr = [];
+    const { budget } = this.props;
         return(
             <View style={styles.background}>
                 <View style={styles.container}>
                     <View style={styles.circle}>
                         {/*<View style={styles.circle_two}>*/}
                             <Text style={styles.welcome}>Welcome back!</Text>
-                            <Text style={styles.balance}>$15.00</Text>
-                            <Text style={styles.budget}>You have $15.00 in your budget</Text>
+                            <Text style={styles.balance}>${budget.spendingBudget}</Text>
+                            <Text style={styles.budget}>You have ${budget.spendingBudget} in your budget</Text>
                             { arr.length > 0 ?   <Text style={styles.reminder}>Congratulations! You have no outstanding bills</Text>
                                 :<Text style={styles.reminder}>Your Netflix bill is coming up tomorrow</Text>
                             }
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
 const mapState = state => {
   return {
     user: state.user,
+    budget: state.budget,
     transactions: state.accTrans.trans
   };
 };

@@ -8,7 +8,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { Navbar, Link, Landing, Login, SignUp, BudgetSetup } from './client/src';
+import { Navbar, Link, Landing, Login, SignUp, BudgetSetup, CategoryEdit } from './client/src';
 
 async function enablePushNotifs() {
   if (!Constants.isDevice) {
@@ -51,12 +51,12 @@ export default class App extends Component {
 }
 
 const AuthenticationNavigator = createStackNavigator({
-  //Landing: { screen: Landing},
+  Landing: { screen: Landing},
   Login: { screen: Login},
-  //SignUp: { screen: SignUp },
-  //Link: { screen: Link },
-  //BudgetSetup: { screen: BudgetSetup },
- /* EditCategories: { screen: EditCategories },*/
+  SignUp: { screen: SignUp },
+  Link: { screen: Link },
+  BudgetSetup: { screen: BudgetSetup },
+  CategoryEdit: { screen: CategoryEdit }
 });
 
 const AppNavigator2 = createSwitchNavigator({

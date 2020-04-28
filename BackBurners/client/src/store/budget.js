@@ -17,21 +17,21 @@ const updateBudgetCreator = budget => ({ type: UPDATEBUDGET, budget });
 export const getBudget = userId => {
   return async dispatch => {
     try {
-      const resp = await axios.post(`${server}/api/budget/${userId}`,{public_token: token}, axiosConfig)
+      const resp = await axios.get(`${server}/api/budget/${userId}`, axiosConfig)
       console.log("get budget", resp.data)
-      //dispatch(getBudgetCreator(resp.data))
+      dispatch(getBudgetCreator(resp.data))
     } catch(err) {
       console.log('Error getting budget: ', err.message);
     }
   }
 }
 
-export const updateBudget = budget => {
+export const updateBudget = (budget, id) => {
   return async dispatch => {
-  try {
-      const resp = await axios.post(`${server}/api/budget`, {budget: budget}, axiosConfig)
+    try {
+      const resp = await axios.put(`${server}/api/budget`, {budget: budget, id: id}, axiosConfig)
       console.log("update budget", resp.data)
-      //dispatch(updateBudgetCreator(resp.data))
+      dispatch(updateBudgetCreator(resp.data))
     } catch(err) {
       console.log('Error updating budget: ', err.message);
     }

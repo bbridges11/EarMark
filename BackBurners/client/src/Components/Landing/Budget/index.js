@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
-import { Button } from 'react-native-elements';
+import { createStackNavigator } from 'react-navigation-stack';
 import BudgetSetup from './BudgetSetup';
-import EditCategories from './EditCategories';
-import Home from '../Home';
+import EditCategories from './CategoryEdit';
+import Home from '../../Home';
 
-class Budget extends React.Component {
+class Budget extends Component {
   constructor(props) {
     super(props);
   }
