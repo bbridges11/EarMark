@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, TouchableOpacity, View, Dimensions ,TextInput, KeyboardAvoidingView, Animated, Keyboard, StyleSheet, Image, Platform, Button } from 'react-native';
+import {
+    Text, TouchableOpacity, View, Dimensions,
+    TextInput, KeyboardAvoidingView, Animated, Keyboard, StyleSheet, Image, Platform, Button
+} from 'react-native';
 import { signup } from '../../store/user';
 import { bindActionCreators } from 'redux';
 const personIcon = require('../../Images/personIcon.png')
 const MailIcon = require('../../Images/MailIcon.png')
 const LockIcon = require('../../Images/LockIcon.png')
 const height = Dimensions.get('screen').height
+
 class SignUp extends Component {
     constructor(props) {
         super(props);

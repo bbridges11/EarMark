@@ -56,11 +56,11 @@ const AuthenticationNavigator = createStackNavigator({
   //SignUp: { screen: SignUp },
   //Link: { screen: Link },
   //BudgetSetup: { screen: BudgetSetup },
- /* EditCategories: { screen: EditCategories },*/
+  //EditCategories: { screen: EditCategories },
 });
 
 const AppNavigator2 = createSwitchNavigator({
-  Auth: { screen: AuthenticationNavigator },
+  //Auth: { screen: AuthenticationNavigator },
   Main: { screen: Navbar }
 });
 

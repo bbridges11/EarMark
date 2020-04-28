@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\Components",
+    "\\client\\src\\Components\\Activity",
+    "\\client\\src\\Components\\Analytics",
+    "\\client\\src\\Components\\Home",
+    "\\client\\src\\Components\\Landing",
+    "\\client\\src\\Components\\Profile"
+  ],
+  "SelectedNode": "\\client\\src\\Components\\Analytics\\index.js",
+  "PreviewInSolutionExplorer": false
+}
