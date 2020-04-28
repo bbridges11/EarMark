@@ -29,7 +29,7 @@ class Home extends Component {
             loading: false,
             OGdataLoaded: true
           })
-          if(this.state.OGdataLoaded) {
+          /*if(this.state.OGdataLoaded) {
             console.log('HEREEEE')
             var date_time = this.props.transactions[0].createdAt;
             console.log(date_time)
@@ -48,7 +48,7 @@ class Home extends Component {
                 }
               }, 3000)
             }
-          }
+          }*/
         }
       }, 3000)
     }
@@ -59,36 +59,122 @@ class Home extends Component {
   }
 
   render() {
-    return(
-      <View>
-        <Text>$15.00</Text>
-        <Text>You have $15.00 in your budget</Text>
-        <Text>Congratulations! You have no outstanding bills</Text>
-        <Text>Your Netflix bill is coming up tomorrow</Text>
-      </View>
-    );
+    const arr = [];
+    const { budget } = this.props;
+        return(
+            <View style={styles.background}>
+                <View style={styles.container}>
+                    <View style={styles.circle}>
+                        {/*<View style={styles.circle_two}>*/}
+                            <Text style={styles.welcome}>Welcome back!</Text>
+                            <Text style={styles.balance}>${budget.spendingBudget}</Text>
+                            <Text style={styles.budget}>You have ${budget.spendingBudget} in your budget</Text>
+                            { arr.length > 0 ?   <Text style={styles.reminder}>Congratulations! You have no outstanding bills</Text>
+                                :<Text style={styles.reminder}>Your Netflix bill is coming up tomorrow</Text>
+                            }
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Add Bill</Text>
+                            </View>
+                        {/*</View>*/}
+                    </View>
+                </View>
+            </View>
+        );
   }
 }
 
 const styles = StyleSheet.create({
 
-  container: {
+    background:{
+        // backgroundColor: '#BCFDC1',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 
-    backgroundColor: '#D9F0D8',
-    width:500,
-    marginTop:100,
-    // height: 500,
+    // container: {
+    //
+    //     backgroundColor: '#BCFDC1',
+    //     width:374,
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     height: 400,
+    // },
 
+    circle: {
+        // backgroundColor: 'rgba(255,255,255,0.5)',
+        backgroundColor: '#F1FFF1',
+        width: 375,
+        height: 375,
+        borderRadius: 375 / 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 
-  }
+    circle_two: {
+        backgroundColor: 'rgba(255,255,255,0.5)',
+        width: 250,
+        height: 300,
+        borderRadius: 300 / 2,
+        // justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    welcome:{
+        fontSize:22,
+        color: '#248841',
+    },
+
+    balance:{
+        fontSize: 60,
+        color: '#248841',
+        paddingBottom: 30,
+        paddingTop: 40,
+        justifyContent: 'center',
+    },
+
+    budget:{
+        fontSize: 22,
+        color: '#248841',
+        paddingBottom: 15,
+        justifyContent: 'center',
+        fontWeight: 'bold',
+    },
+    reminder:{
+        color: '#248841',
+        paddingBottom: 10,
+        justifyContent: 'center',
+    },
+    buttonText:{
+        color: '#F1FFF1',
+    //     width: 80,
+    //     height: 25,
+    //     backgroundColor: '#BCFDC1',
+        alignSelf: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlignVertical: "center",
+    //     borderRadius: 12,
+    //     marginTop:15,
+        fontSize: 22,
+    },
+    button:{
+        backgroundColor: '#789F64',
+        width: 80,
+        height: 80,
+        borderRadius: 80 / 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
 
 })
-
-
 
 const mapState = state => {
   return {
     user: state.user,
+    budget: state.budget,
     transactions: state.accTrans.trans
   };
 };

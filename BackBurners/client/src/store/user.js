@@ -17,15 +17,12 @@ const deleteUser = () => ({ type: DELETEUSER });
 
 export const signup = (userObject) => dispatch => {
   axios.post(`${server}/auth/signup`, userObject, axiosConfig).then(r => {
-    console.log("signup", r.data)
-    alert("signup", r.data)
     dispatch(getUser(r.data))
   })
 }
 
 export const login = (email, passWord, nav, pushTok) => dispatch => {
   axios.post(`${server}/auth/login`, {email, passWord, pushTok}).then(r => {
-    console.log("login", r.data)
     dispatch(getUser(r.data))
     nav.navigate('Home', { title: 'Home' });
   })
@@ -36,7 +33,6 @@ export const login = (email, passWord, nav, pushTok) => dispatch => {
 export default (state = {}, action) => {
   switch (action.type) {
     case GETUSER:
-      console.log(action)
       return action.user;
     case DELETEUSER:
       return {};
