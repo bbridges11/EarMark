@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Text, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { getAccTransData } from '../../store/accountTransactions';
+import { getBudget } from '../../store/budget'
 import { getLatestAccData } from '../../store/token'
 import { bindActionCreators } from 'redux';
 const moment = require('moment');
@@ -56,6 +57,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.getAccTran()
+    this.props.getBudget(this.props.user._id)
   }
 
   render() {
@@ -182,7 +184,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return bindActionCreators({
     getAccTransData,
-    getLatestAccData
+    getLatestAccData,
+    getBudget
   }, dispatch)
 };
 

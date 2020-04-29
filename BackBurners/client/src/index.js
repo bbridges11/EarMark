@@ -8,6 +8,9 @@ export { default as Login } from './Components/Landing/Login';
 export { default as SignUp } from './Components/Landing/SignUp';
 export { default as Analytics } from './Components/Analytics';
 
-export { default as Budget } from './Components/Landing/Budget';
+export { default as Budget } from './Components/Landing/Budget/index';
 export { default as BudgetSetup } from './Components/Landing/Budget/BudgetSetup';
 export { default as CategoryEdit } from './Components/Landing/Budget/CategoryEdit.js';
+
+export { default as LineGraph } from './Components/Analytics/LineGraph';
+export { default as Pie } from './Components/Analytics/Pie'

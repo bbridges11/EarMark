@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import BudgetSetup from './BudgetSetup';
 import EditCategories from './CategoryEdit';
@@ -11,16 +11,32 @@ class Budget extends Component {
     super(props);
   }
 
-  getData() {
-   
-  }
-
   render() {
     return (
       <View >
-        <View>
+        <View style={{ padding: 7 }}>
+            <Button
+              textStyle={{ textAlign: 'center' }}
+              title={`Edit Budget`}
+              onPress={() => {
+                this.props.navigation.navigate('BudgetSetup', {
+                  title: 'BudgetSetup'
+                });
+              }}
+            />
+          </View>
 
-        </View>
+          <View style={{ padding: 7 }}>
+            <Button
+              textStyle={{ textAlign: 'center' }}
+              title={`Edit Categories`}
+              onPress={() => {
+                this.props.navigation.navigate('CategoryEdit', {
+                  title: 'CategoryEdit'
+                });
+              }}
+            />
+          </View>
       </View>
     );
   }
@@ -29,7 +45,7 @@ class Budget extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    budget: state.acctTrans.budget
+    budget: state.budget
   };
 };
 
@@ -40,6 +56,6 @@ export default BudgetConnect;
 export const BudgetStack = createStackNavigator({
   Budget: { screen: BudgetConnect },
   BudgetSetup: { screen: BudgetSetup },
-  //EditCategories: { screen: EditCategories },
+  EditCategories: { screen: EditCategories },
   Home: { screen: Home }
 });

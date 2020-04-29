@@ -81,7 +81,7 @@ class LineGraph extends Component {
 const styles = StyleSheet.create({
     backButton: {
         padding: 5,
-        justifyContent: 'left'
+        //justifyContent: 'left'
     },
 
     FrontHead: {
