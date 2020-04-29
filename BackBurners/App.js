@@ -8,7 +8,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { Navbar, Link, Landing, Login, SignUp, BudgetSetup, CategoryEdit } from './client/src';
+import { Navbar, Link, Landing, Login, SignUp, BudgetSetup, CategoryEdit, Budget } from './client/src';
 
 async function enablePushNotifs() {
   if (!Constants.isDevice) {

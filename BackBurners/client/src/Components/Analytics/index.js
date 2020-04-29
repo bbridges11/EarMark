@@ -1,75 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Dimensions, StyleSheet, Button, Image } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, Button, Image , ScrollView} from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
-import {
-    LineChart, BarChart, PieChart
-} from "react-native-chart-kit";
-//import { LineChart } from 'react-native-svg-charts'
-import * as shape from 'd3-shape'
-import { ScrollView } from 'react-native-gesture-handler';
-import { LineGraph, Pie } from './Analytics'
-
-
-const screenWidth = Dimensions.get("window").width;
-
-//const totalAmt = 0; 
-
-const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#08130D",
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-  strokeWidth: 2, // optional, default 3
-  barPercentage: 0.5
-};
-
-/*const dataPie = [
-  {
-    name: "Shopping",
-    amount: 50,
-    color: "#80ffaa",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  },
-  {
-    name: "Groceries",
-    amount: 100,
-    color: "#26FB64",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  },
-  {
-    name: "Entertainment",
-    amount: 74,
-    color: "#00cc44",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  },
-  {
-    name: "Work Expense",
-    amount: 40,
-    color: "#99ffbb",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  },
-  {
-    name: "Travel",
-    amount: 200,
-    color: "#00cc66",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  },
-  {
-    name: "Other",
-    amount: 120,
-    color: "#248841",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 14
-  }
-];*/
-
+import { bindActionCreators } from 'redux'
+import { getBudget } from '../../store/budget'
+import Pie from './Pie'
+import Budget from '../Landing/Budget'
+const height = Dimensions.get('screen').height
 
 /*const dataLine = {
     labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
@@ -83,29 +20,33 @@ const chartConfig = {
 };*/
 
 class Analytics extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    //this.props.getBudget(this.props.user._id)
+  }
   render() {
       return (
-        //testing for 1 tab to be a button to see if it works.
       <View>
         <View style={styles.center}>
           <View style={styles.secondRow}>
             <View>
               <Image style={styles.imgTab} source={require('../../Images/Analytics/Current.png')}/>
               
-              <Button style={styles.BigButton} title="Go to Pie Chart for Budget" onPress={() => this.props.navigation.navigate('LineGraph')} />
+              <Button style={styles.BigButton} title="Go to Pie Chart for Budget" onPress={() => {this.props.navigation.navigate('Pie', { title: 'Pie' } )}} />
             </View>
           </View>
           <View style={styles.thirdRow}>
-              <Image style={styles.imgTab} source={require('../../Images/Analytics/Spending.png')} />
-              <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Spending Breakdown</Text>
-
+            <Image style={styles.imgTab} source={require('../../Images/Analytics/spending.png')} />
+            <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Spending Breakdown</Text>
           </View>
           <View style={styles.fourthRow}>
-                <Image style={styles.imgTab} source={require('../../Images/Analytics/PrevMonths.png')} />
-                <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Previous Months</Text>
+            <Image style={styles.imgTab} source={require('../../Images/Analytics/PrevMonths.png')} />
+            <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Previous Months</Text>
+          </View>
         </View>
-            </View>
-
       </View>
     );
   }
@@ -209,18 +150,23 @@ const styles = StyleSheet.create({
 
 const mapState = state => {
   return {
-    
+    budget: state.budget,
+    user: state.user
   };
 };
 
 const mapDispatch = dispatch => {
-  return {
-    
-  };
+  return bindActionCreators({
+    getBudget
+  }, dispatch)
 };
 
 const AnalyticsConnect = connect(mapState,mapDispatch)(Analytics);
 
 export default AnalyticsConnect;
 
-export const AnalyticsScreen = createStackNavigator({ Analytics: { screen: AnalyticsConnect }});
+export const AnalyticsScreen = createStackNavigator({ 
+  Analytics: { screen: AnalyticsConnect },
+  Pie: { screen: Pie },
+  Budget: { screen: Budget }
+});

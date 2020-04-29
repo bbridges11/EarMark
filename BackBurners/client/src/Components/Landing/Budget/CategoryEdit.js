@@ -17,41 +17,45 @@ class CategoryEdit extends Component {
     }   
 
     componentDidMount() {
-        this.props.getBudget(this.props.user._id)
+        //this.props.getBudget(this.props.user._id)
+        this.mounting()
     }
 
-    static getDerivedStateFromProps(props, state) {
-        alert(JSON.stringify(props))
-        if (props.budget && props.budget.munchies !== state.categories.name) {
-          return {
-            categories: [
-              {
-                name: 'Munchies',
-                percentage: props.budget.munchies,
-              },
-              {
-                name: 'travelling',
-                percentage: props.budget.travelling,
-              },
-              {
-                name: 'healthcare',
-                percentage: props.budget.healthcare,
-              },
-              {
-                name: 'service',
-                percentage: props.budget.service,
-              },
-              {
-                name: 'shopping',
-                percentage: props.budget.shopping,
-              }
-            ],
-            remaining: 100 - props.budget.munchies - props.budget.travelling - props.budget.healthcare - props.budget.service - props.budget.shopping
-           };
+    mounting = () => {
+        if (this.props.budget && this.props.budget.munchies !== this.state.categories.name) {
+            this.setState({
+                categories: [
+                {
+                    name: 'Munchies',
+                    percentage: this.props.budget.munchies,
+                },
+                {
+                    name: 'travelling',
+                    percentage: this.props.budget.travelling,
+                },
+                {
+                    name: 'healthcare',
+                    percentage: this.props.budget.healthcare,
+                },
+                {
+                    name: 'service',
+                    percentage: this.props.budget.service,
+                },
+                {
+                    name: 'shopping',
+                    percentage: this.props.budget.shopping,
+                }],
+                remaining: 100 - this.props.budget.munchies - this.props.budget.travelling - this.props.budget.healthcare - this.props.budget.service - this.props.budget.shopping
+            })
         } else {
           return null;
         }
     }
+
+    //static getDerivedStateFromProps(props, state) {
+        //alert(JSON.stringify(props))
+        
+    //}
 
     toTitle(str, separator) {
         separator = typeof separator === 'undefined' ? ' ' : separator;
@@ -61,36 +65,23 @@ class CategoryEdit extends Component {
           .replace(/\w\S*/g, function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
           });
-      }
+    }
 
-    render(){
+    render() {
         return(
             <ScrollView>
-                <View >
+                <View>
                     {this.props.budget.userId && (
                         <View>
                         <View>
-                            <Text>
-                            Edit Your Budget
-                            </Text>
-                            <View >
-                            <Text>
-                                {this.state.remaining}%
-                            </Text>
-                            <Text>
-                                ${(this.props.budget.spendingBudget *
-                                this.state.remaining) /
-                                100}
-                            </Text>
+                            <Text>Edit Your Budget</Text>
+                            <View>
+                                <Text>{this.state.remaining}% ${(this.props.budget.spendingBudget * this.state.remaining) / 100}</Text>
                             </View>
 
-                            <View >
-                            <Text>
-                                remaining
-                            </Text>
-                            <Text>
-                                of ${this.props.budget.spendingBudget}
-                            </Text>
+                            <View>
+                                <Text>remaining</Text>
+                                <Text>of ${this.props.budget.spendingBudget}</Text>
                             </View>
                         </View>
                         <View style={{ paddingLeft: 5, paddingRight: 5 }} />
@@ -121,7 +112,9 @@ class CategoryEdit extends Component {
                                             return {
                                                 categories: [...prevState.categories].map(
                                                 elem => {
+                                                    
                                                     if (elem.name === category.name) {
+                                                        console.log(elem.name,value)
                                                     elem.percentage = value;
                                                     return elem;
                                                     } else {
@@ -160,8 +153,7 @@ class CategoryEdit extends Component {
                                 Continue to Home
                             </Button>
                         </View>
-                    )
-                }
+                    )}
                 </View>
             </ScrollView>
         )
