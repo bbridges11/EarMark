@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Button } from 'react-native';
 import { Card } from 'react-native-elements';
 import Slider from 'react-native-slider';
 import { connect } from 'react-redux';
-import { getBudget, updateBudget } from '../../../store/budget';
+import { updateBudget } from '../../../store/budget';
 import { bindActionCreators } from 'redux';
 
 
@@ -17,7 +17,6 @@ class CategoryEdit extends Component {
     }   
 
     componentDidMount() {
-        //this.props.getBudget(this.props.user._id)
         this.mounting()
     }
 
@@ -52,19 +51,16 @@ class CategoryEdit extends Component {
         }
     }
 
-    //static getDerivedStateFromProps(props, state) {
-        //alert(JSON.stringify(props))
-        
-    //}
-
-    toTitle(str, separator) {
-        separator = typeof separator === 'undefined' ? ' ' : separator;
-        return str
-          .replace(/([a-z\d])([A-Z])/g, '$1' + separator + '$2')
-          .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + separator + '$2')
-          .replace(/\w\S*/g, function(txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-          });
+    handleSubmit = () => {
+        this.props.updateBudget({
+            ...this.props.budget,
+            munchies: this.state.categories[0].percentage,
+            travelling: this.state.categories[1].percentage,
+            healthcare: this.state.categories[2].percentage,
+            service: this.state.categories[3].percentage,
+            shops: this.state.categories[4].percentage
+        }, this.props.user._id);
+        this.props.navigation.navigate('Home', { title: 'Home' });
     }
 
     render() {
@@ -93,7 +89,7 @@ class CategoryEdit extends Component {
                                         <View style={{ padding: 5, width: '100%' }} />
                                         <View style={{ paddingLeft: 20, paddingEnd: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
                                         <Text >
-                                            {this.toTitle(category.name)}
+                                            {category.name}
                                         </Text>
 
                                         <Text >
@@ -135,21 +131,7 @@ class CategoryEdit extends Component {
                                 );
                             })}
 
-                            <Button                                
-                                textStyle={{ textAlign: 'center' }}
-                                title={`Continue to Home`}
-                                onPress={() => {
-                                this.props.updateBudget({
-                                    ...this.props.budget,
-                                    munchies: this.state.categories[0].percentage,
-                                    travelling: this.state.categories[1].percentage,
-                                    healthcare: this.state.categories[2].percentage,
-                                    service: this.state.categories[3].percentage,
-                                    shops: this.state.categories[4].percentage
-                                }, this.props.user._id);
-                                this.props.navigation.navigate('Home', { title: 'Home' });
-                                }}
-                            >
+                            <Button textStyle={{ textAlign: 'center' }} title={`Continue to Home`} onPress={() => { this.handleSubmit() }}>
                                 Continue to Home
                             </Button>
                         </View>
@@ -161,7 +143,6 @@ class CategoryEdit extends Component {
 }
 
 const mapStateToProps = state => {
-    alert(JSON.stringify(state.budget))
     return {
         budget: state.budget,
         user: state.user,
@@ -171,8 +152,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        updateBudget,
-        getBudget
+        updateBudget
     }, dispatch)
 };
 

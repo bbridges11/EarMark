@@ -24,7 +24,6 @@ class Home extends Component {
     if(this.state.loading) {
       this.props.getAccTransData(this.props.user._id)
       setTimeout(() => {
-        console.log(this.props.transactions[0])
         if(this.props.transactions !== undefined) {
           this.setState({
             loading: false,

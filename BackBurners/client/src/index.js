@@ -14,3 +14,5 @@ export { default as CategoryEdit } from './Components/Landing/Budget/CategoryEdi
 
 export { default as LineGraph } from './Components/Analytics/LineGraph';
 export { default as Pie } from './Components/Analytics/Pie'
+
+export { default as Billing } from './Components/Activity/billing'

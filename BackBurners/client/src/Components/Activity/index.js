@@ -4,8 +4,12 @@ import { connect } from 'react-redux'
 import { Text, View, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux';
+import Billing from './billing'
 
 class Activity extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return(
       <View style={{flex: 1}}>
@@ -28,7 +32,7 @@ class Activity extends Component {
           <Text style={styles.rechargeLabel}>Recharge & Bills</Text>
           <View style={{flexDirection: 'row'}}>
             <View style={styles.myButton}>
-              <Text>Mobile</Text>
+              <Text onPress={() => {this.props.navigation.navigate('Billing', { title: 'Billing' }); alert('yooo')}}>Mobile</Text>
             </View>
             
             <View style = {styles.myButton}>
@@ -135,4 +139,5 @@ const mapState = state => {
 
 export const ActivityScreen = createStackNavigator({
     Activity: { screen: ActivityConnect },
+    Billing: { screen: Billing }
 });
