@@ -1,6 +1,6 @@
 import React, { Component, useRef } from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Dimensions, Animated, StyleSheet, Image, Button } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, Image, Button, TouchableOpacity } from 'react-native';
 import { PieChart } from "react-native-chart-kit";
 import { createStackNavigator } from 'react-navigation-stack';
 import Budget from '../Landing/Budget'
@@ -15,16 +15,6 @@ const chartConfig = {
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5
 };
-
-/*const fadeAnim = useRef(new Animated.Value(0)).current;
-
-const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 2000
-    }).start();
-};*/
 
 class Pie extends Component {
     constructor(props) {
@@ -80,31 +70,43 @@ class Pie extends Component {
     render() {
         const { budget } = this.props;
         return (
-            <View>        
-                <Text style={styles.FrontHead}>Current Budget</Text>
-                <Text style={styles.FrontHeadNum}>{budget.spendingBudget}</Text>
-                <Animated.View style={[
-                    styles.fadingContainer,
-                    {
-                        //opacity: fadeAnim // Bind opacity to animated value
-                    }
-                ]}>
-                    <PieChart
-                        data={this.state.pieChartData}
-                        width={screenWidth}
-                        height={220}
-                        chartConfig={chartConfig}
-                        accessor="amount"
-                        backgroundColor="transparent"
-                        paddingLeft="15"
-                        absolute
+            <View>
+                <View style={{
+                    display: "flex",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}>        
+                    <Text style={styles.FrontHead}>Current Budget</Text>
+                    <Text style={styles.FrontHeadNum}>{budget.spendingBudget}</Text>
+                </View>
+
+                <View>
+                    <PieChart style={styles.PieC}
+                            data={this.state.pieChartData}
+                            width={screenWidth}
+                            height={220}
+                            chartConfig={chartConfig}
+                            accessor="amount"
+                            backgroundColor="transparent"
+                            paddingLeft="15"
+                            absolute
                     />
+                </View>
 
-                </Animated.View>
-
-                <Button title={'Edit Budget'} style={styles.budgetButton} onPress={() => {this.props.navigation.navigate('Budget', { title: 'Budget' })}}>
-                    <Text>Edit Budget</Text> 
-                </Button>
+                <View style={{
+                    display: "flex",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}>  
+                        <TouchableOpacity style={styles.button}
+                            onPress={() => { this.props.navigation.navigate('Budget', { title: 'Budget' }) }}>
+                        <Text style={{
+                            color: "white",
+                            fontSize: 20,
+                        }}>Edit Budget</Text> 
+                        </TouchableOpacity>
+                </View>
+                
             </View>
         );
     }
@@ -117,32 +119,41 @@ const styles = StyleSheet.create({
     },
 
     FrontHead: {
-        justifyContent: "center",
-        alignItems: 'center',
-        padding: 10,
-        fontSize: 3,
+        alignContent: "center",
+        margin: 10,
+        marginTop: 20,
+        marginBottom: 20,
+        fontSize: 30,
         color: "#248841"
     },
 
     FrontHeadNum: {
+        display: "flex",
         justifyContent: "center",
         alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
         padding: 10,
         fontSize: 40,
         color: "#4acf6f"
     },
 
-    budgetButton: {
-        marginLeft: 40,
-        marginBottom: 40,
-        fontSize: 30,
-        height: 50,
-        width: '80%',
+    PieC: {
+        marginTop: 30,
+        marginBottom: 30,
+    },
+
+    button: {
+        width: "50%",
         padding: 10,
-        color: '#FFFFFF',
-        backgroundColor: '#789F64',
+        marginTop: 30,
+        marginBottom: 30,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        color: '#1aff1a',
+        backgroundColor: '#789F64',
     }
 })
 

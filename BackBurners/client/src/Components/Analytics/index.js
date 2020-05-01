@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Dimensions, StyleSheet, Button, Image , ScrollView} from 'react-native';
+import { Text, View, Dimensions, StyleSheet, Button, Image, TouchableOpacity, ScrollView} from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux'
 import { getBudget } from '../../store/budget'
 import Pie from './Pie'
+//import LineGraph from './LineGraph' // I copied what u did to pie in this file to graph but doesn't work lol
 import Budget from '../Landing/Budget'
 const height = Dimensions.get('screen').height
 
@@ -34,17 +35,29 @@ class Analytics extends Component {
           <View style={styles.secondRow}>
             <View>
               <Image style={styles.imgTab} source={require('../../Images/Analytics/Current.png')}/>
-              
-              <Button style={styles.BigButton} title="Go to Pie Chart for Budget" onPress={() => {this.props.navigation.navigate('Pie', { title: 'Pie' } )}} />
+                <TouchableOpacity //same thing as a button but easier to customize and better
+                    onPress={() => { this.props.navigation.navigate('Pie', { title: 'Current Budget ' }) }}>
+                              <Text style={styles.ButtonText}>Current Budget</Text>
+                </TouchableOpacity>
             </View>
           </View>
+
           <View style={styles.thirdRow}>
             <Image style={styles.imgTab} source={require('../../Images/Analytics/spending.png')} />
-            <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Spending Breakdown</Text>
+            <TouchableOpacity /*style={styles.MonthButton}*/
+                onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }}>
+                <Text style={styles.ButtonTextSpending}>Spending Breakdown</Text>
+            </TouchableOpacity>
+                      
           </View>
+
           <View style={styles.fourthRow}>
-            <Image style={styles.imgTab} source={require('../../Images/Analytics/PrevMonths.png')} />
-            <Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Previous Months</Text>
+            <Image style={styles.imgTab} source={require('../../Images/Analytics/PrevMonths.png')} />         
+            <TouchableOpacity /*style={styles.MonthButton}*/
+                onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }}>
+                <Text style={styles.ButtonText}>Previous Months</Text>
+            </TouchableOpacity>
+                      
           </View>
         </View>
       </View>
@@ -52,37 +65,14 @@ class Analytics extends Component {
   }
 }
 
-/*<ScrollView>
-    <Text style={styles.FrontHead}>Current Budget</Text>
 
-    <PieChart
-        data={dataPie}
-        width={screenWidth}
-        height={220}
-        chartConfig={chartConfig}
-        accessor="amount"
-        backgroundColor="transparent"
-        paddingLeft="15"
-        absolute
-    />
 
-    <Text style={styles.DetailHead}> Details </Text>
-    <Text style={styles.DetailHead}> Last months </Text>
-    <LineChart
-        data={dataLine}
-        width={screenWidth}
-        height={256}
-        yAxisLabel={'$'}
-        verticalLabelRotation={30}
-        chartConfig={{
-            backgroundColor: '#ffffff',
-            backgroundGradientFrom: '#ffffff',
-            backgroundGradientTo: '#808080',
-            color: (opacity = 1) => `rgba(0, 230, 0, ${opacity})`
-        }}
-        bezier
-    />
-</ScrollView>*/
+/*<Button style={styles.BigButton} title="Spending Breakdown" onPress={() => { this.props.navigation.navigate('spending', { title: 'spending' }) }} />*/
+
+/*<Button style={styles.BigButton} title="Previous Months" onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }} />
+*//*<Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Spending Breakdown</Text>*/
+/*<Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Previous Months</Text>*/
+
 
 const styles = StyleSheet.create({
     imgTab: {
@@ -97,9 +87,20 @@ const styles = StyleSheet.create({
         height: height - 300,
         paddingTop: 150,
     },
-    text: {
+    /*monthButton: {
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10
+    },*/
+    ButtonText: {
         color: '#248841',
-        fontSize: 26,
+        fontSize: 22,
+        fontFamily: 'Arial',
+        fontWeight: 'bold'
+    },
+    ButtonTextSpending: {
+        color: '#248841',
+        fontSize: 20,
         fontFamily: 'Arial',
         fontWeight: 'bold'
     },
@@ -168,5 +169,6 @@ export default AnalyticsConnect;
 export const AnalyticsScreen = createStackNavigator({ 
   Analytics: { screen: AnalyticsConnect },
   Pie: { screen: Pie },
+  //LineGraph: { screen: LineGraph },
   Budget: { screen: Budget }
 });

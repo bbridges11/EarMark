@@ -36,7 +36,14 @@ class LineGraph extends Component {
                     <Image source={require('../../Images/Analytics/BBack Symbol.png')} />
                 </Button> 
 
-                <Text style={styles.FrontHead}>March</Text>
+                <View style={{
+                    display: "flex",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    /* alignItems: 'stretch',*/
+                }}> 
+                    <Text style={styles.FrontHead}>March</Text>
+                </View>
 
                 <View>
                     <LineChart
@@ -55,7 +62,13 @@ class LineGraph extends Component {
                     />
                 </View>
 
-                <Text style={styles.FrontHead}>February</Text>
+                <View style={{
+                    display: "flex",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                }}> 
+                    <Text style={styles.FrontHead}>February</Text>
+                </View>
 
                 <View>
                     <LineChart
