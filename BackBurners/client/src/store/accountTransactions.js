@@ -1,4 +1,4 @@
-import { server } from './index';
+import { server } from './consts';
 import axios from 'axios'
 let axiosConfig = {
     headers: {
@@ -8,17 +8,17 @@ let axiosConfig = {
 
 // Action Types
 const SETACCTTRANSDATA = 'SETACCTTRANSDATA';
-const CHANGETRANS = 'CHANGETRANS';
+const ADDTRANS = 'ADDTRANS';
 
 // Action Creators
 export const setAccTransData = data => ({ type: SETACCTTRANSDATA, data });
-const changeTrans = transaction => ({ type: CHANGETRANS, transaction });
+const addTrans = transaction => ({ type: ADDTRANS, transaction });
 
 export const getAccTransData = (id) => {
     return async dispatch => {
       try {
         const resp = await axios.get(`${server}/api/accTrans/${id}`, axiosConfig);
-        //console.log(resp)
+        //console.log(resp.data)
         dispatch(setAccTransData(resp.data));
       } catch (err) {
         console.log('Error fetching acct & trans data: ', err.message);
@@ -29,8 +29,9 @@ export const getAccTransData = (id) => {
 export const updateAccTrans = newTrans => {
     return async dispatch => {
         try {
-            const resp = await axios.put(`${server}/api/accTrans/${newTrans.id}`, newTrans, axiosConfig);
-            //dispatch(changeTrans(resp.data));
+            const resp = await axios.post(`${server}/api/accTrans`, newTrans, axiosConfig);
+            //console.log('yooo', resp.data)
+            dispatch(addTrans(resp.data));
         } catch (err) {
             console.log('Error updating transaction: ', err.message);
         }
@@ -43,16 +44,10 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case SETACCTTRANSDATA:
             return action.data;
-        case CHANGETRANS:
+        case ADDTRANS:
             return {
                 ...state,
-                trans: state.trans.map(transaction => {
-                    if (transaction.id === action.transaction.id) {
-                        return action.transaction;
-                    } else {
-                        return transaction;
-                    }
-                }),
+                trans: [...state.trans, action.transaction.trans]
             };
         default:
             return state;

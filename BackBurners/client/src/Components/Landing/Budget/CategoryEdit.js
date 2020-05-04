@@ -14,15 +14,8 @@ class CategoryEdit extends Component {
             categories: [],
             remaining: 0
         }
-    }   
-
-    componentDidMount() {
-        this.mounting()
-    }
-
-    mounting = () => {
         if (this.props.budget && this.props.budget.munchies !== this.state.categories.name) {
-            this.setState({
+            this.state = {
                 categories: [
                 {
                     name: 'Munchies',
@@ -45,7 +38,43 @@ class CategoryEdit extends Component {
                     percentage: this.props.budget.shopping,
                 }],
                 remaining: 100 - this.props.budget.munchies - this.props.budget.travelling - this.props.budget.healthcare - this.props.budget.service - this.props.budget.shopping
-            })
+            }
+        } else {
+          return null;
+        }
+    }   
+
+    componentDidMount() {
+        //this.mounting()
+    }
+
+    mounting = () => {
+        console.log(this.props.budget)
+        if (this.props.budget && this.props.budget.munchies !== this.state.categories.name) {
+            this.state = {
+                categories: [
+                {
+                    name: 'Munchies',
+                    percentage: this.props.budget.munchies,
+                },
+                {
+                    name: 'travelling',
+                    percentage: this.props.budget.travelling,
+                },
+                {
+                    name: 'healthcare',
+                    percentage: this.props.budget.healthcare,
+                },
+                {
+                    name: 'service',
+                    percentage: this.props.budget.service,
+                },
+                {
+                    name: 'shopping',
+                    percentage: this.props.budget.shopping,
+                }],
+                remaining: 100 - this.props.budget.munchies - this.props.budget.travelling - this.props.budget.healthcare - this.props.budget.service - this.props.budget.shopping
+            }
         } else {
           return null;
         }

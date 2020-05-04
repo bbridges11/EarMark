@@ -5,20 +5,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux'
 import { getBudget } from '../../store/budget'
 import Pie from './Pie'
-//import LineGraph from './LineGraph' // I copied what u did to pie in this file to graph but doesn't work lol
+import LineGraph from './LineGraph'
 import Budget from '../Landing/Budget'
+import Billing from '../Activity/billing'
 const height = Dimensions.get('screen').height
-
-/*const dataLine = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    datasets: [
-        {
-            data: [20, 43, 35, 80],
-            color: "", // optional
-            strokeWidth: 2 // optional
-        }
-    ]
-};*/
 
 class Analytics extends Component {
   constructor(props) {
@@ -33,19 +23,16 @@ class Analytics extends Component {
       <View>
         <View style={styles.center}>
           <View style={styles.secondRow}>
-            <View>
-              <Image style={styles.imgTab} source={require('../../Images/Analytics/Current.png')}/>
-                <TouchableOpacity //same thing as a button but easier to customize and better
-                    onPress={() => { this.props.navigation.navigate('Pie', { title: 'Current Budget ' }) }}>
-                              <Text style={styles.ButtonText}>Current Budget</Text>
-                </TouchableOpacity>
-            </View>
+            <Image style={styles.imgTab} source={require('../../Images/Analytics/Current.png')}/>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Pie', { title: 'Current Budget ' }) }}>
+              <Text style={styles.ButtonText}>Current Budget</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.thirdRow}>
             <Image style={styles.imgTab} source={require('../../Images/Analytics/spending.png')} />
-            <TouchableOpacity /*style={styles.MonthButton}*/
-                onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }}>
+            <TouchableOpacity 
+                onPress={() => { this.props.navigation.navigate('Billing', { title: 'Billing' }) }}>
                 <Text style={styles.ButtonTextSpending}>Spending Breakdown</Text>
             </TouchableOpacity>
                       
@@ -53,8 +40,8 @@ class Analytics extends Component {
 
           <View style={styles.fourthRow}>
             <Image style={styles.imgTab} source={require('../../Images/Analytics/PrevMonths.png')} />         
-            <TouchableOpacity /*style={styles.MonthButton}*/
-                onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }}>
+            <TouchableOpacity 
+                onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'Line' }) }}>
                 <Text style={styles.ButtonText}>Previous Months</Text>
             </TouchableOpacity>
                       
@@ -65,33 +52,26 @@ class Analytics extends Component {
   }
 }
 
-
-
-/*<Button style={styles.BigButton} title="Spending Breakdown" onPress={() => { this.props.navigation.navigate('spending', { title: 'spending' }) }} />*/
-
-/*<Button style={styles.BigButton} title="Previous Months" onPress={() => { this.props.navigation.navigate('LineGraph', { title: 'LineGraph' }) }} />
-*//*<Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Spending Breakdown</Text>*/
-/*<Text style={{ fontSize: 24, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold' }}>Previous Months</Text>*/
-
-
 const styles = StyleSheet.create({
     imgTab: {
         //   alignItems: 'center',
         width: 70,
         height: 70,
+        paddingTop: 10,
         marginLeft: -110,
         marginBottom: -47
     },
     center: {
         alignItems: 'center',
         height: height - 300,
-        paddingTop: 150,
+        paddingTop: 55,
     },
-    /*monthButton: {
+    MonthButton: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        height: 4000, 
+        //backgroundColor: "#DDDDDD",
         padding: 10
-    },*/
+    },
     ButtonText: {
         color: '#248841',
         fontSize: 22,
@@ -107,9 +87,9 @@ const styles = StyleSheet.create({
     secondRow: {
         backgroundColor: '#FFFFFF',
         flex: 1,
-        height: height - 500,
+        //height: 300,
         marginBottom: 20,
-        paddingTop: 20,
+        //paddingTop: 20,
         paddingLeft: 140,
         //   alignItems: 'center',
         width: '90%'
@@ -120,6 +100,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingTop: 40,
         paddingLeft: 140,
+        //height: 2000,
         //    alignItems: 'center',
         width: '90%'
     },
@@ -127,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#BCFDC1',
         flex: 1,
         marginBottom: 20,
-        paddingTop: 40,
+        //paddingTop: 40,
         paddingLeft: 140,
         //   alignItems: 'center',
         width: '90%'
@@ -169,6 +150,7 @@ export default AnalyticsConnect;
 export const AnalyticsScreen = createStackNavigator({ 
   Analytics: { screen: AnalyticsConnect },
   Pie: { screen: Pie },
-  //LineGraph: { screen: LineGraph },
-  Budget: { screen: Budget }
+  LineGraph: { screen: LineGraph },
+  Budget: { screen: Budget },
+  Billing: { screen: Billing }
 });

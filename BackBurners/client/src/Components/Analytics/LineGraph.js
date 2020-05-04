@@ -1,78 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Text, View, Dimensions, Animated, StyleSheet } from 'react-native';
+import { Text, View, Dimensions, Animated, StyleSheet, Button, Image } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
-/*import * as shape from 'd3-shape'
-import { ScrollView } from 'react-native-gesture-handler';*/
-
+import { createStackNavigator } from 'react-navigation-stack';
+import { ScrollView } from 'react-native-gesture-handler';
+const moment = require('moment')
 const screenWidth = Dimensions.get("window").width;
 
-const dataLineMar = {
+const dataLineApr = {
     labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
     datasets: [
         {
-            data: [120, 143, 235, 80],
+            data: [465, 523, 700, 1000],
             color: "", // optional
             strokeWidth: 2 // optional
         }
     ]
 };
 
-const dataLineFeb = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    datasets: [
-        {
-            data: [150, 263, 128, 100],
-            strokeWidth: 2 
-        }
-    ]
-};
 
 class LineGraph extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        }
+    }
+
+    componentDidMount() {
+        dataLineApr.datasets
+    }
+
+    setAprilAmounts = () => {
+        //dataLineApr.datasets
+    }
+
     render() {
         return (
             <View>
-                <Button style={styles.backButton}  onPress={() => this.props.navigation.navigate('Analytics/index')}>
-                    <Image source={require('../../Images/Analytics/BBack Symbol.png')} />
-                </Button> 
-
                 <View style={{
                     display: "flex",
                     flexDirection: 'row',
                     justifyContent: 'center',
                     /* alignItems: 'stretch',*/
                 }}> 
-                    <Text style={styles.FrontHead}>March</Text>
+                    <Text style={styles.FrontHead}>April</Text>
                 </View>
 
                 <View>
                     <LineChart
-                        data={dataLineMar}
-                        width={screenWidth}
-                        height={256}
-                        yAxisLabel={'$'}
-                        verticalLabelRotation={30}
-                        chartConfig={{
-                            backgroundColor: '#ffffff',
-                            backgroundGradientFrom: '#ffffff',
-                            backgroundGradientTo: '#808080',
-                            color: (opacity = 1) => `rgba(0, 230, 0, ${opacity})`
-                        }}
-                        bezier
-                    />
-                </View>
-
-                <View style={{
-                    display: "flex",
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                }}> 
-                    <Text style={styles.FrontHead}>February</Text>
-                </View>
-
-                <View>
-                    <LineChart
-                        data={dataLineFeb} // second line graph for 
+                        data={dataLineApr}
                         width={screenWidth}
                         height={256}
                         yAxisLabel={'$'}
@@ -101,8 +78,29 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: 'center',
         padding: 10,
-        fontSize: 3,
+        fontSize: 23,
         color: "#248841"
     },
 })
 
+const mapState = state => {
+    return {
+        budget: state.budget,
+        user: state.user,
+        transactions: state.acc
+    };
+};
+
+const mapDispatch = dispatch => {
+    return {
+        
+    };
+};
+
+const LineConnect = connect(mapState,mapDispatch)(LineGraph);
+
+export default LineConnect;
+
+export const LineScreen = createStackNavigator({ 
+    LineGraph: { screen: LineConnect },
+});

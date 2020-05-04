@@ -1,4 +1,4 @@
-import { server } from './index';
+import { server } from './consts';
 import axios from 'axios';
 import { setAccTransData } from './accountTransactions'
 // Action Types
@@ -18,7 +18,7 @@ export const sendTok = (token, userId) => {
   return async dispatch => {
     try {
       const resp = await axios.post(`${server}/api/plaid/plaidExchange`,{public_token: token, id: userId}, axiosConfig)
-      console.log(resp.data)
+      console.log(resp.data.trans)
       dispatch(sendPublicToken(resp.data));
     } catch (err) {
       console.log('Error sending public token: ', err.message);

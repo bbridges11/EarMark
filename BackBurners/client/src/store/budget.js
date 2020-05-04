@@ -1,4 +1,4 @@
-import { server } from './index';
+import { server } from './consts';
 import axios from 'axios'
 let axiosConfig = {
     headers: {

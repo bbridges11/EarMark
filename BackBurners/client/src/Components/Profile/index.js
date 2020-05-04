@@ -4,31 +4,14 @@ import { connect } from 'react-redux'
 import { Text, View, StyleSheet, ScrollView, Image, Dimensions } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { bindActionCreators } from 'redux';
-//import ImagePicker from 'react-native-image-picker'
-const height = Dimensions.get('screen').height
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      photo: null
-    }
   }
-
-  /*handleChoosePhoto = () => {
-    const options = {
-      noData: true,
-    }
-    ImagePicker.launchImageLibrary(options, response => {
-      if (response.uri) {
-        this.setState({ photo: response })
-      }
-    })
-  }*/
 
   render() {
     const { user, accounts, transactions } = this.props
-    const { photo} = this.state
     return(
       <ScrollView>
         <View>
@@ -41,10 +24,10 @@ class Profile extends Component {
           <View style={{flex: 1}}>
             <Text style={{fontSize: 18, color: '#248841', fontFamily: 'Arial', fontWeight: 'bold', paddingTop: 10}}>Bank Accounts</Text>
             <ScrollView style={styles.bankAccountSV} horizontal={true}>
-              {accounts.length > 0 ? accounts.map((account, ind) => {
+              {accounts.length > 0 && accounts !== undefined ? accounts.map((account, ind) => {
                 return(
                   <View key={ind} style={styles.myButton}>
-                    <Text onPress={() => alert(account.name)} key={ind} style={{textAlign: "center", color: 'white', fontWeight: 'bold'}}>{account.name}</Text>
+                    <Text key={ind} style={{textAlign: "center", color: 'white', fontWeight: 'bold'}}>{account.name}</Text>
                   </View>
                 )
               }) : null}
@@ -52,11 +35,11 @@ class Profile extends Component {
             <View>
               <Text>Upcoming Bills</Text>
               <ScrollView>
-                {transactions.length > 0 ? transactions.map((transaction, ind) => {
+                {transactions !== undefined ? transactions.map((transaction, ind) => {
                   if(transaction.type === 'standing order') {
                     return(
                       <View key={ind} style={styles.myButton}>
-                        <Text onPress={() => alert(account.name)} key={ind} style={{textAlign: "center", color: 'white', fontWeight: 'bold'}}>{account.name}</Text>
+                        <Text key={ind} style={{textAlign: "center", color: 'white', fontWeight: 'bold'}}>{transaction.name}</Text>
                       </View>
                     )
                   }
@@ -111,7 +94,6 @@ const styles = StyleSheet.create({
 })
 
 const mapState = state => {
-  alert(JSON.stringify(state.accTrans.trans))
   return {
     user: state.user,
     accounts: state.accTrans.accounts,

@@ -42,7 +42,6 @@ class BudgetSetup extends Component {
     const { user } = this.props
     const spendingBudget = 
     this.state.income - this.state.staticCosts - this.state.savings;
-    alert(spendingBudget)
     this.props.updateBudget({ ...this.state, spendingBudget }, user._id);
     this.props.navigation.navigate('CategoryEdit', {
       title: 'CategoryEdit'
